@@ -48,7 +48,7 @@ export interface Turma {
     hora_fim: string
     local: string
     capacidade: number
-    status: 'ABERTA' | 'ENCERRADA'
+    status: 'ABERTA' | 'ENCERRADA' | 'CONCLUIDA'
     created_at: string
     updated_at: string
 }

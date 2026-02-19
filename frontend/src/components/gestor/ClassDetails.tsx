@@ -116,6 +116,24 @@ export function ClassDetails({ turmaId, isOpen, onClose, onUpdate }: ClassDetail
         }
     }
 
+    const handleConclude = async () => {
+        if (!turmaId) return
+        if (!window.confirm('Tem certeza que deseja marcar esta turma como CONCLUÍDA? Isso liberará as avaliações para os alunos.')) return
+
+        try {
+            setSaving(true)
+            await turmasAPI.update(turmaId, { status: 'CONCLUIDA' })
+            await loadDetails()
+            onUpdate()
+            alert('Turma marcada como concluída com sucesso!')
+        } catch (error) {
+            console.error('Error concluding class:', error)
+            alert('Erro ao concluir turma')
+        } finally {
+            setSaving(false)
+        }
+    }
+
     const handleExportExcel = async () => {
         if (!turma) return
         try {
@@ -243,8 +261,23 @@ export function ClassDetails({ turmaId, isOpen, onClose, onUpdate }: ClassDetail
     const ocupacao = Math.round((vagasOcupadas / turma.capacidade) * 100)
 
     const deadlineEfetiva = turma.data_limite_inscricao || turma.data
-    const isFechada = turma.status !== 'ABERTA' || new Date(deadlineEfetiva) < new Date(new Date().toDateString())
-    const statusLabel = isFechada ? 'FECHADA' : 'ABERTA'
+    // Status Logic:
+    // 1. Explicit 'CONCLUIDA' status from DB
+    // 2. Implied 'FECHADA' based on deadline
+    // 3. Default 'ABERTA'
+    const isConcluida = turma.status === 'CONCLUIDA'
+    const isFechada = turma.status !== 'ABERTA' && !isConcluida || new Date(deadlineEfetiva) < new Date(new Date().toDateString())
+
+    let statusLabel = 'ABERTA'
+    let statusColor = 'text-green-400'
+
+    if (isConcluida) {
+        statusLabel = 'CONCLUÍDA'
+        statusColor = 'text-blue-400'
+    } else if (isFechada) {
+        statusLabel = 'FECHADA'
+        statusColor = 'text-red-400'
+    }
 
     return (
         <Modal
@@ -259,8 +292,7 @@ export function ClassDetails({ turmaId, isOpen, onClose, onUpdate }: ClassDetail
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="bg-white/5 p-4 rounded-xl border border-white/10">
                         <div className="text-gray-400 text-sm mb-1">Status</div>
-                        <div className={`text-lg font-bold ${!isFechada ? 'text-green-400' : 'text-red-400'
-                            }`}>
+                        <div className={`text-lg font-bold ${statusColor}`}>
                             {statusLabel}
                         </div>
                     </div>
@@ -289,6 +321,18 @@ export function ClassDetails({ turmaId, isOpen, onClose, onUpdate }: ClassDetail
                         <div className="flex flex-wrap gap-2">
                             {!editing && (
                                 <>
+                                    {!isConcluida && (
+                                        <Button
+                                            variant="outline"
+                                            size="sm"
+                                            onClick={handleConclude}
+                                            className="fixed-width text-blue-400 border-blue-400/30 hover:bg-blue-400/10 mr-2"
+                                            disabled={saving}
+                                        >
+                                            <CheckCircle className="w-4 h-4 mr-2" />
+                                            Concluir Turma
+                                        </Button>
+                                    )}
                                     <Button
                                         variant="outline"
                                         size="sm"

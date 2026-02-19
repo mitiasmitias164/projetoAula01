@@ -88,7 +88,11 @@ export function TurmaManager() {
             if (filterStatus) {
                 const dl = turma.data_limite_inscricao || turma.data
                 const efetivamentoFechada = turma.status !== 'ABERTA' || new Date(dl) < new Date(new Date().toDateString())
-                const statusEfetivo = efetivamentoFechada ? 'FECHADA' : 'ABERTA'
+
+                let statusEfetivo = 'ABERTA'
+                if (turma.status === 'CONCLUIDA') statusEfetivo = 'CONCLUIDA'
+                else if (efetivamentoFechada) statusEfetivo = 'FECHADA'
+
                 matchesStatus = statusEfetivo === filterStatus
             }
             const matchesSearch = searchTerm
@@ -542,7 +546,8 @@ export function TurmaManager() {
                                         options={[
                                             { value: '', label: 'Status' },
                                             { value: 'ABERTA', label: 'Aberta' },
-                                            { value: 'FECHADA', label: 'Fechada' }
+                                            { value: 'FECHADA', label: 'Fechada' },
+                                            { value: 'CONCLUIDA', label: 'Concluída' }
                                         ]}
                                         placeholder="Status"
                                     />
@@ -568,8 +573,20 @@ export function TurmaManager() {
             <div className="space-y-4">
                 {filteredTurmas.map((turma) => {
                     const deadlineEfetiva = turma.data_limite_inscricao || turma.data
-                    const isFechada = turma.status !== 'ABERTA' || new Date(deadlineEfetiva) < new Date(new Date().toDateString())
-                    const statusLabel = isFechada ? 'FECHADA' : 'ABERTA'
+                    // Status Logic
+                    const isConcluida = turma.status === 'CONCLUIDA'
+                    const isFechada = turma.status !== 'ABERTA' && !isConcluida || new Date(deadlineEfetiva) < new Date(new Date().toDateString())
+
+                    let statusLabel = 'ABERTA'
+                    let statusColor = 'bg-green-500/10 text-green-400 border-green-500/20'
+
+                    if (isConcluida) {
+                        statusLabel = 'CONCLUÍDA'
+                        statusColor = 'bg-blue-500/10 text-blue-400 border-blue-500/20'
+                    } else if (isFechada) {
+                        statusLabel = 'FECHADA'
+                        statusColor = 'bg-red-500/10 text-red-400 border-red-500/20'
+                    }
 
                     return (
                         <Card key={turma.id} className="bg-secondary/30 border-white/5 hover:border-primary/50 transition-colors group">
@@ -579,10 +596,7 @@ export function TurmaManager() {
                                         <span className="px-2 py-0.5 rounded text-xs font-semibold bg-primary/20 text-primary border border-primary/20">
                                             {turma.campus?.nome || 'Campus Desconhecido'}
                                         </span>
-                                        <span className={`px-2 py-0.5 rounded text-xs font-semibold border ${!isFechada
-                                            ? 'bg-green-500/10 text-green-400 border-green-500/20'
-                                            : 'bg-red-500/10 text-red-400 border-red-500/20'
-                                            }`}>
+                                        <span className={`px-2 py-0.5 rounded text-xs font-semibold border ${statusColor}`}>
                                             {statusLabel}
                                         </span>
                                     </div>

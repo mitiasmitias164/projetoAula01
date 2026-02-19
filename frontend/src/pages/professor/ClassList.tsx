@@ -5,11 +5,10 @@ import { turmasAPI } from '@backend/api/turmas'
 
 import { ViewSwitcher } from '@/components/classes/ViewSwitcher'
 import { ClassGrid } from '@/components/classes/ClassGrid'
-import { MapView } from '@/components/classes/MapView'
 import { QuickFilters, type QuickFilterValue } from '@/components/classes/QuickFilters'
 import type { TurmaDisponivel } from '@backend/types/database.types'
 
-type ViewType = 'grid' | 'map' | 'list'
+type ViewType = 'grid' | 'list'
 
 export default function ClassList() {
     const [turmas, setTurmas] = useState<TurmaDisponivel[]>([])
@@ -146,15 +145,7 @@ export default function ClassList() {
                 />
             )}
 
-            {currentView === 'map' && (
-                <div className="grid lg:grid-cols-[1fr,400px] gap-8">
-                    <ClassGrid
-                        turmas={filteredTurmas}
-                        enrolling={null}
-                    />
-                    <MapView />
-                </div>
-            )}
+
 
             {currentView === 'list' && (
                 <div className="bg-secondary border border-white/10 rounded-xl overflow-hidden">

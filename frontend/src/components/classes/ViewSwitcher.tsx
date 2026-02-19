@@ -1,6 +1,6 @@
-import { LayoutGrid, MapPin, List } from 'lucide-react'
+import { LayoutGrid, List } from 'lucide-react'
 
-type ViewType = 'grid' | 'map' | 'list'
+type ViewType = 'grid' | 'list'
 
 interface ViewSwitcherProps {
     currentView: ViewType
@@ -10,7 +10,6 @@ interface ViewSwitcherProps {
 export function ViewSwitcher({ currentView, onViewChange }: ViewSwitcherProps) {
     const views: { type: ViewType; icon: typeof LayoutGrid; label: string }[] = [
         { type: 'grid', icon: LayoutGrid, label: 'Grid' },
-        { type: 'map', icon: MapPin, label: 'Mapa' },
         { type: 'list', icon: List, label: 'Lista' }
     ]
 
@@ -20,11 +19,10 @@ export function ViewSwitcher({ currentView, onViewChange }: ViewSwitcherProps) {
                 <button
                     key={type}
                     onClick={() => onViewChange(type)}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                        currentView === type
-                            ? 'bg-primary text-background shadow-lg shadow-primary/20'
-                            : 'text-gray-400 hover:text-white hover:bg-white/5'
-                    }`}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${currentView === type
+                        ? 'bg-primary text-background shadow-lg shadow-primary/20'
+                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                        }`}
                 >
                     <Icon className="w-4 h-4" />
                     <span className="hidden sm:inline">{label}</span>

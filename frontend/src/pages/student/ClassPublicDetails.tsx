@@ -14,30 +14,37 @@ import {
     ArrowLeft,
     Share2,
     Download,
-    AlertCircle
+    AlertCircle,
+    Linkedin,
+    Instagram,
+    Star
 } from 'lucide-react'
+import { EvaluationModal } from '@/components/classes/EvaluationModal'
 
 
 export default function ClassPublicDetails() {
     const { id } = useParams<{ id: string }>()
     const navigate = useNavigate()
-    const { user } = useAuth()
+    const { user, loading: authLoading } = useAuth()
     const [turma, setTurma] = useState<any | null>(null)
     const [loading, setLoading] = useState(true)
     const [enrolling, setEnrolling] = useState(false)
     const [selectedSpeaker, setSelectedSpeaker] = useState<any | null>(null)
+    const [showEvaluationModal, setShowEvaluationModal] = useState(false)
     const [error, setError] = useState('')
 
     useEffect(() => {
-        if (id) {
+        if (id && !authLoading) {
             loadClassDetails()
         }
-    }, [id])
+    }, [id, authLoading, user])
 
     const loadClassDetails = async () => {
         try {
             setLoading(true)
-            const data = await turmasAPI.getDetails(id!)
+            const data = user
+                ? await turmasAPI.getDetails(id!)
+                : await turmasAPI.getPublicDetails(id!)
             setTurma(data)
         } catch (err) {
             console.error('Erro ao carregar turma:', err)
@@ -74,7 +81,7 @@ export default function ClassPublicDetails() {
         }
     }
 
-    if (loading) {
+    if (loading || authLoading) {
         return (
             <div className="min-h-screen bg-background flex items-center justify-center">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
@@ -98,7 +105,19 @@ export default function ClassPublicDetails() {
     const vagasDisponiveis = turma.capacidade - (turma.inscricoes?.filter((i: any) => i.status === 'ATIVA').length || 0)
     const isLotada = vagasDisponiveis <= 0
     const dataLimiteEfetiva = turma.data_limite_inscricao || turma.data
-    const isPrazoEncerrado = new Date(dataLimiteEfetiva) < new Date(new Date().toDateString())
+    const classDate = new Date(turma.data)
+    const now = new Date()
+    // Class is concluded if current time is past class date OR explicitly marked as CONCLUIDA
+    // "Se a Data Atual for maior que a Data do Evento" OU "Status = CONCLUIDA"
+    const isConcluded = now > classDate || turma.status === 'CONCLUIDA'
+    const isPrazoEncerrado = new Date(dataLimiteEfetiva) < new Date(now.toDateString())
+
+    // Evaluation Logic
+    // User must be present to evaluate
+    const isPresent = turma.presencas?.some((p: any) => p.user_id === user?.id && p.presente)
+    // User must not have evaluated yet
+    const hasEvaluated = turma.avaliacoes?.some((a: any) => a.user_id === user?.id)
+    const canEvaluate = isConcluded && isPresent && !hasEvaluated
 
     return (
         <div className="min-h-screen bg-background text-white pb-20">
@@ -137,7 +156,9 @@ export default function ClassPublicDetails() {
                         </span>
                         <span className={`px-3 py-1 rounded-full text-sm font-medium border ${turma.status === 'ABERTA'
                             ? 'bg-green-500/10 text-green-400 border-green-500/20'
-                            : 'bg-red-500/10 text-red-400 border-red-500/20'
+                            : turma.status === 'CONCLUIDA'
+                                ? 'bg-blue-500/10 text-blue-400 border-blue-500/20'
+                                : 'bg-red-500/10 text-red-400 border-red-500/20'
                             }`}>
                             {turma.status}
                         </span>
@@ -331,6 +352,26 @@ export default function ClassPublicDetails() {
                                     </div>
                                 )}
 
+                                {/* Evaluation Button */}
+                                {canEvaluate && (
+                                    <div className="mt-4">
+                                        <Button
+                                            className="w-full py-4 text-lg font-bold bg-gradient-to-r from-yellow-500 to-amber-600 hover:to-yellow-500 text-white shadow-lg shadow-yellow-500/20 animate-pulse"
+                                            onClick={() => setShowEvaluationModal(true)}
+                                        >
+                                            <Star className="w-5 h-5 mr-2" />
+                                            Avaliar Turma
+                                        </Button>
+                                    </div>
+                                )}
+
+                                {hasEvaluated && (
+                                    <div className="mt-4 w-full py-4 bg-yellow-500/20 border border-yellow-500/30 rounded-xl flex items-center justify-center gap-2 text-yellow-500 font-bold">
+                                        <Star className="w-5 h-5 fill-current" />
+                                        Avaliação Enviada
+                                    </div>
+                                )}
+
                                 <p className="text-center text-xs text-gray-500 mt-4">
                                     Ao se inscrever, você concorda com os termos de participação.
                                 </p>
@@ -364,26 +405,97 @@ export default function ClassPublicDetails() {
                 title="Sobre o Palestrante"
             >
                 {selectedSpeaker && (
-                    <div className="flex flex-col items-center text-center">
-                        <div className="w-32 h-32 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden mb-6 ring-4 ring-primary/20">
-                            {selectedSpeaker.avatar_url ? (
-                                <img src={selectedSpeaker.avatar_url} alt={selectedSpeaker.name} className="w-full h-full object-cover" />
-                            ) : (
-                                <span className="text-4xl font-bold text-primary">{selectedSpeaker.name.charAt(0)}</span>
-                            )}
-                        </div>
-                        <h3 className="text-2xl font-bold text-white mb-2">{selectedSpeaker.name}</h3>
-                        <div className="w-16 h-1 bg-primary rounded-full mb-6"></div>
-                        <div className="text-gray-300 leading-relaxed text-left w-full bg-white/5 p-6 rounded-xl border border-white/10">
-                            {selectedSpeaker.bio ? (
-                                <p className="whitespace-pre-wrap">{selectedSpeaker.bio}</p>
-                            ) : (
-                                <p className="text-gray-500 italic">Nenhuma descrição disponível.</p>
-                            )}
+                    <div className="relative">
+                        {/* Decorative Background Header */}
+                        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-br from-primary/20 via-primary/10 to-transparent rounded-t-3xl -mt-6 -mx-6"></div>
+
+                        <div className="relative flex flex-col items-center text-center pt-12">
+                            {/* Avatar with ring */}
+                            <div className="relative mb-6 group">
+                                <div className="absolute -inset-1 bg-gradient-to-br from-primary to-primary-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-500"></div>
+                                <div className="relative w-32 h-32 rounded-full bg-background flex items-center justify-center overflow-hidden ring-4 ring-background">
+                                    {selectedSpeaker.avatar_url ? (
+                                        <img
+                                            src={selectedSpeaker.avatar_url}
+                                            alt={selectedSpeaker.name}
+                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full bg-secondary flex items-center justify-center">
+                                            <span className="text-4xl font-bold text-primary">{selectedSpeaker.name.charAt(0)}</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Name and Role (if we had role) */}
+                            <h3 className="text-3xl font-bold text-white mb-2">{selectedSpeaker.name}</h3>
+                            <div className="h-1 w-12 bg-primary/50 rounded-full mb-6"></div>
+
+                            {/* Social Media Links */}
+                            <div className="flex items-center gap-4 mb-8">
+                                {selectedSpeaker.linkedin_url && (
+                                    <a
+                                        href={selectedSpeaker.linkedin_url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="p-3 rounded-full bg-white/5 hover:bg-[#0077b5]/20 text-gray-400 hover:text-[#0077b5] border border-white/10 hover:border-[#0077b5]/50 transition-all duration-300 group"
+                                        title="LinkedIn"
+                                    >
+                                        <Linkedin className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                                    </a>
+                                )}
+                                {selectedSpeaker.instagram_url && (
+                                    <a
+                                        href={selectedSpeaker.instagram_url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="p-3 rounded-full bg-white/5 hover:bg-[#E1306C]/20 text-gray-400 hover:text-[#E1306C] border border-white/10 hover:border-[#E1306C]/50 transition-all duration-300 group"
+                                        title="Instagram"
+                                    >
+                                        <Instagram className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                                    </a>
+                                )}
+                            </div>
+
+                            {/* Bio Section */}
+                            <div className="w-full text-left">
+                                <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                                    <FileText className="w-4 h-4 text-primary" />
+                                    Sobre
+                                </h4>
+                                <div className="bg-white/5 p-6 rounded-2xl border border-white/10 shadow-inner">
+                                    {selectedSpeaker.bio ? (
+                                        <div className="prose prose-invert prose-sm max-w-none">
+                                            <p className="whitespace-pre-wrap text-gray-300 leading-relaxed text-base">
+                                                {selectedSpeaker.bio}
+                                            </p>
+                                        </div>
+                                    ) : (
+                                        <p className="text-gray-500 italic text-center py-4">
+                                            Nenhuma biografia disponível.
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 )}
             </Modal>
+
+            {/* Evaluation Modal */}
+            {turma && user && (
+                <EvaluationModal
+                    isOpen={showEvaluationModal}
+                    onClose={() => setShowEvaluationModal(false)}
+                    turmaId={turma.id}
+                    userId={user.id}
+                    onSuccess={() => {
+                        loadClassDetails()
+                        alert('Avaliação enviada com sucesso!')
+                    }}
+                />
+            )}
         </div>
     )
 }
