@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Option 3: Innovative Interactive Layout - Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', cursive;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .wireframe-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border: 3px solid #333;
+            border-radius: 8px;
+        }
+        
+        .wireframe-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+            border-bottom: 3px solid #666;
+            padding-bottom: 15px;
+        }
+        
+        .wireframe-description {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .page-section {
+            margin-bottom: 60px;
+            padding: 30px;
+            border: 2px dashed #999;
+            background: #fafafa;
+        }
+        
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-decoration: underline;
+        }
+        
+        /* Minimal Header */
+        .minimal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 2px solid #333;
+            margin-bottom: 0;
+            background: transparent;
+        }
+        
+        .logo-minimal {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .logo-swirl {
+            width: 45px;
+            height: 45px;
+            border: 3px solid #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: repeating-conic-gradient(from 0deg, #ccc 0deg 45deg, #e0e0e0 45deg 90deg);
+        }
+        
+        /* Full-Screen Hero */
+        .fullscreen-hero {
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 40px;
+            border: 3px solid #333;
+            margin-bottom: 40px;
+            position: relative;
+            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 50%, #d0d0d0 100%);
+        }
+        
+        .animated-bg-element {
+            position: absolute;
+            border: 2px dashed #999;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .bg-circle-1 {
+            width: 200px;
+            height: 200px;
+            top: 50px;
+            left: 100px;
+        }
+        
+        .bg-circle-2 {
+            width: 150px;
+            height: 150px;
+            bottom: 80px;
+            right: 120px;
+        }
+        
+        .hero-content-center {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+        
+        .hero-title-large {
+            font-size: 56px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            line-height: 1.1;
+        }
+        
+        .hero-subtitle {
+            font-size: 20px;
+            color: #555;
+            margin-bottom: 35px;
+        }
+        
+        .hero-cta-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .cta-primary {
+            padding: 18px 45px;
+            border: 3px solid #333;
+            background: #333;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .cta-secondary {
+            padding: 18px 45px;
+            border: 3px solid #333;
+            background: transparent;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        /* Feature Carousel */
+        .carousel-container {
+            border: 3px solid #333;
+            padding: 40px;
+            margin-bottom: 40px;
+            background: #fff;
+        }
+        
+        .carousel-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .carousel-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .carousel-dot {
+            width: 50px;
+            height: 8px;
+            border: 2px solid #333;
+            background: #ccc;
+        }
+        
+        .carousel-dot.active {
+            background: #666;
+        }
+        
+        .carousel-slide {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .carousel-image {
+            border: 2px solid #333;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: repeating-linear-gradient(
+                45deg,
+                #e8e8e8,
+                #e8e8e8 10px,
+                #d8d8d8 10px,
+                #d8d8d8 20px
+            );
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .carousel-content h3 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .carousel-content p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .carousel-arrow {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            background: #f0f0f0;
+        }
+        
+        /* View Switcher */
+        .view-switcher {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            justify-content: flex-end;
+        }
+        
+        .view-button {
+            padding: 10px 20px;
+            border: 2px solid #333;
+            background: #f0f0f0;
+            font-weight: bold;
+        }
+        
+        .view-button.active {
+            background: #666;
+            color: white;
+        }
+        
+        /* Grid + Map Layout */
+        .grid-map-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .class-grid-advanced {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .class-card-enhanced {
+            padding: 20px;
+            border: 2px solid #333;
+            background: #fff;
+            position: relative;
+        }
+        
+        .card-image-preview {
+            width: 100%;
+            height: 120px;
+            border: 2px solid #666;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e8e8e8;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .card-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .card-meta {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .card-action {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #333;
+            background: #ddd;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .map-view {
+            border: 3px solid #333;
+            background: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 500px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #666;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 35px, #ddd 35px, #ddd 36px),
+                repeating-linear-gradient(90deg, transparent, transparent 35px, #ddd 35px, #ddd 36px);
+        }
+        
+        .map-marker {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 3px solid #333;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            background: #999;
+        }
+        
+        /* Component Badges */
+        .component-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #4CAF50;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            z-index: 10;
+        }
+        
+        .component-badge.new {
+            background: #FF9800;
+        }
+        
+        .component-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-wrapper {
+            position: relative;
+        }
+        
+        @media (max-width: 768px) {
+            .wireframe-container {
+                padding: 20px;
+            }
+            
+            .fullscreen-hero {
+                padding: 60px 20px;
+                min-height: 400px;
+            }
+            
+            .hero-title-large {
+                font-size: 36px;
+            }
+            
+            .hero-cta-group {
+                flex-direction: column;
+            }
+            
+            .carousel-slide {
+                grid-template-columns: 1fr;
+            }
+            
+            .grid-map-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .map-view {
+                min-height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wireframe-container">
+        <h1 class="wireframe-title">Option 3: Innovative Interactive Layout</h1>
+        <p class="wireframe-description">
+            Bold, innovative approach with custom components and advanced interactions. Full-screen immersive hero with animations. 
+            Feature carousel for engaging storytelling. Grid + Map dual-view for class discovery with visual location context.
+        </p>
+        
+        <!-- LANDING PAGE -->
+        <div class="page-section">
+            <h2 class="page-title">📄 Landing Page</h2>
+            
+            <!-- NEW COMPONENT: MinimalHeader -->
+            <div class="section-wrapper">
+                <span class="component-badge new" title="To be created at src/components/layout/MinimalHeader.tsx">[NEW] MinimalHeader</span>
+                <div class="minimal-header">
+                    <div class="logo-minimal">
+                        <div class="logo-swirl">[∞]</div>
+                        <span>ProgramaAulas</span>
+                    </div>
+                    <div style="display: flex; gap: 15px;">
+                        <!-- REUSABLE: Button -->
+                        <div class="component-wrapper">
+                            <span class="component-badge" title="src/components/ui/Button.tsx">[REUSE] Button</span>
+                            <div style="padding: 10px 20px; border: 2px solid #333; font-weight: bold;">Entrar</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NEW COMPONENT: FullscreenHero with AnimatedBackground -->
+            <div class="section-wrapper">
+                <span class="component-badge new" title="To be created at src/components/landing/FullscreenHero.tsx">[NEW] FullscreenHero</span>
+                <div class="fullscreen-hero">
+                    <div class="animated-bg-element bg-circle-1"></div>
+                    <div class="animated-bg-element bg-circle-2"></div>
+                    <div class="section-wrapper">
+                        <span class="component-badge new" title="To be created at src/components/landing/AnimatedBackground.tsx">[NEW] AnimatedBackground</span>
+                    </div>
+                    
+                    <div class="hero-content-center">
+                        <div style="display: inline-block; padding: 8px 18px; border: 2px solid #555; border-radius: 20px; margin-bottom: 25px; background: rgba(255,255,255,0.7); font-size: 14px;">
+                            ⚡ Powered by AI
+                        </div>
+                        <h1 class="hero-title-large">
+                            Transforme a gestão<br/>
+                            educacional com IA
+                        </h1>
+                        <p class="hero-subtitle">
+                            Automatize processos, economize tempo e melhore resultados com inteligência artificial aplicada à educação
+                        </p>
+                        <div class="hero-cta-group">
+                            <!-- REUSABLE: Button -->
+                            <div class="component-wrapper">
+                                <span class="component-badge" title="src/components/ui/Button.tsx">[REUSE] Button</span>
+                                <div class="cta-primary">Começar Agora</div>
+                            </div>
+                            <div class="component-wrapper">
+                                <span class="component-badge" title="src/components/ui/Button.tsx">[REUSE] Button</span>
+                                <div class="cta-secondary">Ver Demo</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NEW COMPONENT: InteractiveCarousel -->
+            <div class="section-wrapper">
+                <span class="component-badge new" title="To be created at src/components/landing/InteractiveCarousel.tsx">[NEW] InteractiveCarousel</span>
+                <div class="carousel-container">
+                    <div class="carousel-header">
+                        <h2 class="carousel-title">Soluções Completas</h2>
+                        <p style="color: #666; font-size: 16px;">Navegue pelas funcionalidades</p>
+                    </div>
+                    
+                    <div class="carousel-nav">
+                        <div class="carousel-dot active"></div>
+                        <div class="carousel-dot"></div>
+                        <div class="carousel-dot"></div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <div class="carousel-image">
+                            [Feature Illustration]<br/>
+                            Dashboard Analytics
+                        </div>
+                        <div class="carousel-content">
+                            <h3>Gestão Inteligente de Turmas</h3>
+                            <p>
+                                Acompanhe todas as turmas em tempo real. Visualize métricas de desempenho, presença e engajamento em dashboards interativos.
+                            </p>
+                            <ul style="list-style: none; padding: 0; margin-bottom: 20px;">
+                                <li style="margin-bottom: 8px;">✓ Dashboard em tempo real</li>
+                                <li style="margin-bottom: 8px;">✓ Relatórios automatizados</li>
+                                <li style="margin-bottom: 8px;">✓ Alertas inteligentes</li>
+                            </ul>
+                            <!-- REUSABLE: Button -->
+                            <div class="component-wrapper">
+                                <span class="component-badge" title="src/components/ui/Button.tsx">[REUSE] Button</span>
+                                <div style="display: inline-block; padding: 12px 28px; border: 2px solid #333; font-weight: bold;">Saiba Mais →</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-controls">
+                        <div class="carousel-arrow">←</div>
+                        <div class="carousel-arrow">→</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Social Proof Section -->
+            <div style="text-align: center; padding: 60px 30px; border: 2px solid #666; margin-bottom: 40px; background: #f9f9f9;">
+                <h3 style="font-size: 28px; font-weight: bold; margin-bottom: 30px;">Confiado por instituições de ensino</h3>
+                <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+                    <div style="width: 120px; height: 60px; border: 2px solid #999; display: flex; align-items: center; justify-content: center; background: #fff;">[Logo 1]</div>
+                    <div style="width: 120px; height: 60px; border: 2px solid #999; display: flex; align-items: center; justify-content: center; background: #fff;">[Logo 2]</div>
+                    <div style="width: 120px; height: 60px; border: 2px solid #999; display: flex; align-items: center; justify-content: center; background: #fff;">[Logo 3]</div>
+                    <div style="width: 120px; height: 60px; border: 2px solid #999; display: flex; align-items: center; justify-content: center; background: #fff;">[Logo 4]</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CLASS LIST PAGE (Authenticated) -->
+        <div class="page-section">
+            <h2 class="page-title">📄 Class List Page (Authenticated)</h2>
+            
+            <!-- REUSABLE: Layout -->
+            <div class="section-wrapper">
+                <span class="component-badge" title="src/components/layout/Layout.tsx">[REUSE] Layout</span>
+                <div style="border: 2px solid #666; padding: 25px; background: #fefefe;">
+                    
+                    <!-- Page Header with View Switcher -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+                        <div>
+                            <h1 style="font-size: 32px; font-weight: bold; margin-bottom: 8px;">Descubra Turmas</h1>
+                            <p style="color: #666;">Explore turmas por localização e disponibilidade</p>
+                        </div>
+                        <!-- NEW COMPONENT: ViewSwitcher -->
+                        <div class="section-wrapper">
+                            <span class="component-badge new" title="To be created at src/components/classes/ViewSwitcher.tsx">[NEW] ViewSwitcher</span>
+                            <div class="view-switcher">
+                                <button class="view-button active">[Grid] Grid</button>
+                                <button class="view-button">[Map] Mapa</button>
+                                <button class="view-button">[List] Lista</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Search Bar -->
+                    <div style="margin-bottom: 30px;">
+                        <!-- REUSABLE: Input -->
+                        <div class="component-wrapper">
+                            <span class="component-badge" title="src/components/ui/Input.tsx">[REUSE] Input</span>
+                            <input type="text" style="width: 100%; padding: 15px 20px; border: 2px solid #333; font-size: 16px; background: #fff;" placeholder="🔍 Buscar por campus, data ou localização..." />
+                        </div>
+                    </div>
+                    
+                    <!-- Grid + Map Layout -->
+                    <div class="grid-map-container">
+                        <!-- NEW COMPONENT: ClassGrid -->
+                        <div class="section-wrapper">
+                            <span class="component-badge new" title="To be created at src/components/classes/ClassGrid.tsx">[NEW] ClassGrid</span>
+                            <div class="class-grid-advanced">
+                                <!-- REUSABLE: Card -->
+                                <div class="component-wrapper">
+                                    <span class="component-badge" title="src/components/ui/Card.tsx">[REUSE] Card</span>
+                                    <div class="class-card-enhanced">
+                                        <div class="card-image-preview">[Campus Photo]</div>
+                                        <div style="display: inline-block; padding: 4px 10px; border: 1px solid #666; border-radius: 12px; font-size: 11px; margin-bottom: 10px; background: #f0f0f0;">
+                                            Campus Norte
+                                        </div>
+                                        <h3 class="card-title">Turma de IA - Manhã</h3>
+                                        <div class="card-meta">📅 15/02/2026 • 14:00-18:00</div>
+                                        <div class="card-meta">📍 Sala 201 - Bloco A</div>
+                                        <div class="card-meta"><strong>15 vagas disponíveis</strong></div>
+                                        <!-- REUSABLE: Button -->
+                                        <div class="component-wrapper">
+                                            <span class="component-badge" title="src/components/ui/Button.tsx">[REUSE] Button</span>
+                                            <div class="card-action">Ver Detalhes</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="component-wrapper">
+                                    <span class="component-badge" title="src/components/ui/Card.tsx">[REUSE] Card</span>
+                                    <div class="class-card-enhanced">
+                                        <div class="card-image-preview">[Campus Photo]</div>
+                                        <div style="display: inline-block; padding: 4px 10px; border: 1px solid #666; border-radius: 12px; font-size: 11px; margin-bottom: 10px; background: #f0f0f0;">
+                                            Campus Sul
+                                        </div>
+                                        <h3 class="card-title">Turma de IA - Tarde</h3>
+                                        <div class="card-meta">📅 16/02/2026 • 09:00-13:00</div>
+                                        <div class="card-meta">📍 Laboratório 105</div>
+                                        <div class="card-meta"><strong>8 vagas disponíveis</strong></div>
+                                        <div class="component-wrapper">
+                                            <span class="component-badge" title="src/components/ui/Button.tsx">[REUSE] Button</span>
+                                            <div class="card-action">Ver Detalhes</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="component-wrapper">
+                                    <span class="component-badge" title="src/components/ui/Card.tsx">[REUSE] Card</span>
+                                    <div class="class-card-enhanced">
+                                        <div class="card-image-preview">[Campus Photo]</div>
+                                        <div style="display: inline-block; padding: 4px 10px; border: 1px solid #666; border-radius: 12px; font-size: 11px; margin-bottom: 10px; background: #f0f0f0;">
+                                            Campus Leste
+                                        </div>
+                                        <h3 class="card-title">Turma de IA - Noite</h3>
+                                        <div class="card-meta">📅 17/02/2026 • 19:00-22:00</div>
+                                        <div class="card-meta">📍 Auditório Principal</div>
+                                        <div class="card-meta" style="color: #999;"><strong>Lotada</strong></div>
+                                        <div class="component-wrapper">
+                                            <span class="component-badge" title="src/components/ui/Button.tsx">[REUSE] Button</span>
+                                            <div class="card-action" style="background: #999;">Indisponível</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- NEW COMPONENT: MapView -->
+                        <div class="section-wrapper">
+                            <span class="component-badge new" title="To be created at src/components/classes/MapView.tsx">[NEW] MapView</span>
+                            <div class="map-view" style="position: relative;">
+                                <div style="position: relative; z-index: 2;">
+                                    [Interactive Map]<br/>
+                                    Campus Locations
+                                </div>
+                                <div class="map-marker" style="top: 30%; left: 40%;"></div>
+                                <div class="map-marker" style="top: 60%; left: 65%;"></div>
+                                <div class="map-marker" style="top: 45%; left: 25%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Filters -->
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px;">
+                        <div style="padding: 8px 16px; border: 2px solid #666; border-radius: 20px; font-size: 13px; background: #f0f0f0;">🕐 Manhã</div>
+                        <div style="padding: 8px 16px; border: 2px solid #666; border-radius: 20px; font-size: 13px; background: #f0f0f0;">🕐 Tarde</div>
+                        <div style="padding: 8px 16px; border: 2px solid #666; border-radius: 20px; font-size: 13px; background: #f0f0f0;">🕐 Noite</div>
+                        <div style="padding: 8px 16px; border: 2px solid #666; border-radius: 20px; font-size: 13px; background: #f0f0f0;">📍 Próximo a mim</div>
+                        <div style="padding: 8px 16px; border: 2px solid #666; border-radius: 20px; font-size: 13px; background: #f0f0f0;">✓ Com vagas</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Summary -->
+        <div style="margin-top: 40px; padding: 30px; background: #e3f2fd; border: 2px solid #2196F3; border-radius: 8px;">
+            <h3 style="font-size: 20px; font-weight: bold; margin-bottom: 15px;">💡 Key Features of Option 3</h3>
+            <ul style="list-style: none; padding-left: 0;">
+                <li style="margin-bottom: 10px;">✓ <strong>Immersive Experience:</strong> Full-screen hero with animated background elements</li>
+                <li style="margin-bottom: 10px;">✓ <strong>Interactive Storytelling:</strong> Feature carousel for engaging content presentation</li>
+                <li style="margin-bottom: 10px;">✓ <strong>Dual-View Discovery:</strong> Grid + Map layout for visual class exploration</li>
+                <li style="margin-bottom: 10px;">✓ <strong>Visual-First Design:</strong> Campus photos and rich media in class cards</li>
+                <li style="margin-bottom: 10px;">✓ <strong>Advanced Interactions:</strong> View switcher, quick filters, location-based search</li>
+                <li style="margin-bottom: 10px;">✓ <strong>Most Custom Development:</strong> 8 new components (MinimalHeader, FullscreenHero, AnimatedBackground, InteractiveCarousel, ViewSwitcher, ClassGrid, MapView, and enhanced cards)</li>
+                <li style="margin-bottom: 10px;">✓ <strong>Modern & Bold:</strong> Differentiated from competitors, memorable user experience</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

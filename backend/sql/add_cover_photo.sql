@@ -1,0 +1,2 @@
+ALTER TABLE turmas
+ADD COLUMN IF NOT EXISTS foto_capa TEXT;

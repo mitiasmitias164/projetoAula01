@@ -1,0 +1,12 @@
+{
+    "name": "backend",
+    "version": "1.0.0",
+    "private": true,
+    "description": "Backend logic for the application, consumed by frontend.",
+    "scripts": {
+        "build": "echo \"This package is consumed by the frontend. No separate build required.\""
+    },
+    "dependencies": {
+        "@supabase/supabase-js": "^2.95.3"
+    }
+}

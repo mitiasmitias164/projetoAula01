@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Option 1: Hero-Driven Layout - Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', cursive;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .wireframe-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border: 3px solid #333;
+            border-radius: 8px;
+        }
+        
+        .wireframe-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+            border-bottom: 3px solid #666;
+            padding-bottom: 15px;
+        }
+        
+        .wireframe-description {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .page-section {
+            margin-bottom: 60px;
+            padding: 30px;
+            border: 2px dashed #999;
+            background: #fafafa;
+        }
+        
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-decoration: underline;
+        }
+        
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            border: 2px solid #333;
+            margin-bottom: 30px;
+            background: #fff;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e0e0e0;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-link {
+            padding: 8px 16px;
+            border: 2px solid #666;
+            text-decoration: underline;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 40px;
+            border: 3px solid #333;
+            margin-bottom: 40px;
+            background: linear-gradient(to bottom, #fff 0%, #e8e8e8 100%);
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 2px solid #666;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            background: #f0f0f0;
+        }
+        
+        .hero-title {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero-description {
+            font-size: 18px;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .hero-cta {
+            display: inline-block;
+            padding: 15px 40px;
+            border: 3px solid #333;
+            background: #ddd;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .feature-card {
+            padding: 30px;
+            border: 2px solid #333;
+            background: #fff;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e8e8e8;
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .feature-description {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Class List Grid */
+        .class-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .class-card {
+            padding: 25px;
+            border: 3px solid #333;
+            background: #fff;
+        }
+        
+        .class-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ccc;
+        }
+        
+        .campus-badge {
+            padding: 6px 12px;
+            border: 2px solid #666;
+            border-radius: 15px;
+            font-size: 12px;
+            background: #e8e8e8;
+        }
+        
+        .vacancy-count {
+            font-weight: bold;
+        }
+        
+        .class-details {
+            margin-bottom: 20px;
+        }
+        
+        .detail-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .detail-icon {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #333;
+            background: #ddd;
+        }
+        
+        .enroll-button {
+            width: 100%;
+            padding: 12px;
+            border: 3px solid #333;
+            background: #ccc;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        /* Component Badges */
+        .component-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #4CAF50;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            z-index: 10;
+        }
+        
+        .component-badge.new {
+            background: #FF9800;
+        }
+        
+        .component-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-wrapper {
+            position: relative;
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 30px;
+            border-top: 2px solid #333;
+            text-align: center;
+            color: #666;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .wireframe-container {
+                padding: 20px;
+            }
+            
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wireframe-container">
+        <h1 class="wireframe-title">Option 1: Hero-Driven Layout</h1>
+        <p class="wireframe-description">
+            Conservative approach maximizing reuse of existing components. Traditional hero-centered landing page with feature grid. 
+            Simple card-based class listing for authenticated users.
+        </p>
+        
+        <!-- LANDING PAGE -->
+        <div class="page-section">
+            <h2 class="page-title">📄 Landing Page</h2>
+            
+            <!-- REUSABLE: Header from src/components/layout/Header.tsx -->
+            <div class="section-wrapper">
+                <span class="component-badge" title="src/components/layout/Header.tsx">[REUSE] Header</span>
+                <div class="header">
+                    <div class="logo">
+                        <div class="logo-icon">IA</div>
+                        <span>ProgramaAulas</span>
+                    </div>
+                    <div class="nav-links">
+                        <!-- REUSABLE: Button from src/components/ui/Button.tsx -->
+                        <div class="component-wrapper">
+                            <span class="component-badge" title="src/components/ui/Button.tsx">[REUSE] Button</span>
+                            <div class="nav-link">Entrar</div>
+                        </div>
+                        <div class="component-wrapper">
+                            <span class="component-badge" title="src/components/ui/Button.tsx">[REUSE] Button</span>
+                            <div class="nav-link">Criar Conta</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NEW COMPONENT: HeroSection -->
+            <div class="section-wrapper">
+                <span class="component-badge new" title="To be created at src/components/landing/HeroSection.tsx">[NEW] HeroSection</span>
+                <div class="hero">
+                    <div class="hero-badge">✨ Novidade: Gestão Simplificada</div>
+                    <h1 class="hero-title">
+                        Gerencie suas aulas com<br/>
+                        inteligência e simplicidade
+                    </h1>
+                    <p class="hero-description">
+                        Uma plataforma completa para professores e gestores. Acompanhe turmas, diários e desempenho em um só lugar.
+                    </p>
+                    <!-- REUSABLE: Button from src/components/ui/Button.tsx -->
+                    <div class="component-wrapper">
+                        <span class="component-badge" title="src/components/ui/Button.tsx">[REUSE] Button</span>
+                        <div class="hero-cta">Faça sua inscrição →</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NEW COMPONENT: FeaturesSection with FeatureCards -->
+            <div class="section-wrapper">
+                <span class="component-badge new" title="To be created at src/components/landing/FeaturesSection.tsx">[NEW] FeaturesSection</span>
+                <div style="text-align: center; margin: 40px 0 30px;">
+                    <h2 style="font-size: 32px; font-weight: bold; margin-bottom: 10px;">Tudo o que você precisa</h2>
+                    <p style="color: #666;">Ferramentas poderosas para otimizar o dia a dia escolar</p>
+                </div>
+                
+                <div class="features-grid">
+                    <!-- REUSABLE: Card component for each feature -->
+                    <div class="component-wrapper">
+                        <span class="component-badge" title="src/components/ui/Card.tsx">[REUSE] Card</span>
+                        <div class="feature-card">
+                            <div class="feature-icon">[📊]</div>
+                            <h3 class="feature-title">Gestão de Turmas</h3>
+                            <p class="feature-description">Organize alunos, frequências e ocorrências de forma centralizada</p>
+                        </div>
+                    </div>
+                    
+                    <div class="component-wrapper">
+                        <span class="component-badge" title="src/components/ui/Card.tsx">[REUSE] Card</span>
+                        <div class="feature-card">
+                            <div class="feature-icon">[📈]</div>
+                            <h3 class="feature-title">Relatórios</h3>
+                            <p class="feature-description">Acompanhe métricas em tempo real</p>
+                        </div>
+                    </div>
+                    
+                    <div class="component-wrapper">
+                        <span class="component-badge" title="src/components/ui/Card.tsx">[REUSE] Card</span>
+                        <div class="feature-card">
+                            <div class="feature-icon">[⏱️]</div>
+                            <h3 class="feature-title">Economia de Tempo</h3>
+                            <p class="feature-description">Automatize tarefas repetitivas</p>
+                        </div>
+                    </div>
+                    
+                    <div class="component-wrapper">
+                        <span class="component-badge" title="src/components/ui/Card.tsx">[REUSE] Card</span>
+                        <div class="feature-card">
+                            <div class="feature-icon">[🔒]</div>
+                            <h3 class="feature-title">Segurança</h3>
+                            <p class="feature-description">Dados protegidos com padrões modernos</p>
+                        </div>
+                    </div>
+                    
+                    <div class="component-wrapper">
+                        <span class="component-badge" title="src/components/ui/Card.tsx">[REUSE] Card</span>
+                        <div class="feature-card">
+                            <div class="feature-icon">[📖]</div>
+                            <h3 class="feature-title">Diário Digital</h3>
+                            <p class="feature-description">Registre conteúdos e notas online</p>
+                        </div>
+                    </div>
+                    
+                    <div class="component-wrapper">
+                        <span class="component-badge" title="src/components/ui/Card.tsx">[REUSE] Card</span>
+                        <div class="feature-card">
+                            <div class="feature-icon">[➡️]</div>
+                            <h3 class="feature-title">E muito mais</h3>
+                            <p class="feature-description">Funcionalidades que evoluem com você</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- REUSABLE: Footer -->
+            <div class="section-wrapper">
+                <span class="component-badge" title="src/components/layout/Layout.tsx (footer)">[REUSE] Footer</span>
+                <div class="footer">
+                    <div style="font-weight: bold; margin-bottom: 10px;">ProgramaAulas</div>
+                    <div>© 2026 Todos os direitos reservados</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CLASS LIST PAGE (Authenticated) -->
+        <div class="page-section">
+            <h2 class="page-title">📄 Class List Page (Authenticated)</h2>
+            
+            <!-- REUSABLE: Layout from src/components/layout/Layout.tsx -->
+            <div class="section-wrapper">
+                <span class="component-badge" title="src/components/layout/Layout.tsx">[REUSE] Layout</span>
+                <div style="border: 2px solid #666; padding: 20px; background: #fefefe;">
+                    
+                    <!-- Page Header -->
+                    <div style="margin-bottom: 30px;">
+                        <h1 style="font-size: 32px; font-weight: bold; margin-bottom: 8px;">Turmas Disponíveis</h1>
+                        <p style="color: #666;">Inscreva-se nas turmas de Inteligência Artificial</p>
+                    </div>
+                    
+                    <!-- Class Cards Grid -->
+                    <div class="class-grid">
+                        <!-- REUSABLE: Card from src/components/ui/Card.tsx -->
+                        <div class="component-wrapper">
+                            <span class="component-badge" title="src/components/ui/Card.tsx">[REUSE] Card</span>
+                            <div class="class-card">
+                                <div class="class-header">
+                                    <span class="campus-badge">Campus Norte</span>
+                                    <span class="vacancy-count">15 vagas</span>
+                                </div>
+                                <div class="class-details">
+                                    <div class="detail-row">
+                                        <div class="detail-icon">[📅]</div>
+                                        <span>15/02/2026</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-icon">[🕐]</div>
+                                        <span>14:00 - 18:00</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-icon">[📍]</div>
+                                        <span>Sala 201 - Bloco A</span>
+                                    </div>
+                                </div>
+                                <!-- REUSABLE: Button from src/components/ui/Button.tsx -->
+                                <div class="component-wrapper">
+                                    <span class="component-badge" title="src/components/ui/Button.tsx">[REUSE] Button</span>
+                                    <div class="enroll-button">Inscrever</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Additional Cards -->
+                        <div class="component-wrapper">
+                            <span class="component-badge" title="src/components/ui/Card.tsx">[REUSE] Card</span>
+                            <div class="class-card">
+                                <div class="class-header">
+                                    <span class="campus-badge">Campus Sul</span>
+                                    <span class="vacancy-count">8 vagas</span>
+                                </div>
+                                <div class="class-details">
+                                    <div class="detail-row">
+                                        <div class="detail-icon">[📅]</div>
+                                        <span>16/02/2026</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-icon">[🕐]</div>
+                                        <span>09:00 - 13:00</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-icon">[📍]</div>
+                                        <span>Laboratório 105</span>
+                                    </div>
+                                </div>
+                                <div class="component-wrapper">
+                                    <span class="component-badge" title="src/components/ui/Button.tsx">[REUSE] Button</span>
+                                    <div class="enroll-button">Inscrever</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="component-wrapper">
+                            <span class="component-badge" title="src/components/ui/Card.tsx">[REUSE] Card</span>
+                            <div class="class-card">
+                                <div class="class-header">
+                                    <span class="campus-badge">Campus Leste</span>
+                                    <span class="vacancy-count">0 vagas</span>
+                                </div>
+                                <div class="class-details">
+                                    <div class="detail-row">
+                                        <div class="detail-icon">[📅]</div>
+                                        <span>17/02/2026</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-icon">[🕐]</div>
+                                        <span>19:00 - 22:00</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-icon">[📍]</div>
+                                        <span>Auditório Principal</span>
+                                    </div>
+                                </div>
+                                <div class="component-wrapper">
+                                    <span class="component-badge" title="src/components/ui/Button.tsx">[REUSE] Button</span>
+                                    <div class="enroll-button" style="background: #999;">Turma Lotada</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Summary -->
+        <div style="margin-top: 40px; padding: 30px; background: #e8f5e9; border: 2px solid #4CAF50; border-radius: 8px;">
+            <h3 style="font-size: 20px; font-weight: bold; margin-bottom: 15px;">💡 Key Features of Option 1</h3>
+            <ul style="list-style: none; padding-left: 0;">
+                <li style="margin-bottom: 10px;">✓ <strong>Maximum Component Reuse:</strong> Uses existing Button, Card, Input, Header, Layout, Footer</li>
+                <li style="margin-bottom: 10px;">✓ <strong>Minimal New Development:</strong> Only 2 new components needed (HeroSection, FeaturesSection)</li>
+                <li style="margin-bottom: 10px;">✓ <strong>Traditional Layout:</strong> Familiar hero-driven landing page pattern</li>
+                <li style="margin-bottom: 10px;">✓ <strong>Quick Implementation:</strong> Fastest to develop and deploy</li>
+                <li style="margin-bottom: 10px;">✓ <strong>Mobile-Friendly:</strong> Simple responsive grid layouts</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
