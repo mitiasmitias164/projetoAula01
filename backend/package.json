@@ -7,6 +7,6 @@
         "build": "echo \"This package is consumed by the frontend. No separate build required.\""
     },
     "dependencies": {
-        "@supabase/supabase-js": "^2.95.3"
+        "@supabase/supabase-js": "^2.97.0"
     }
 }
